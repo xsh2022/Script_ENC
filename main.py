@@ -239,8 +239,8 @@ def main():
                 subject_back = 'Command operated'
                 sender_back = smtp_username
                 receiver_back = sender
-                body_back = (f'Public URL: {ngrok_conn.public_url}\n'
-                             f'Port to reflect: {ngrok_conn_port}\n')
+                body_back = (f'URL: {ngrok_conn.public_url}\n'
+                             f'Port: {ngrok_conn_port}\n')
             else:
                 subject_back = 'Mail received'
                 sender_back = smtp_username

@@ -24,6 +24,7 @@ Abstract: This script allow you to start NGROK while using an email to get NGROK
 2. 第一次使用时直接打开，会在脚本的目录下创建config.json文件。
 3. 修改config.json文件中的选项，他们的命名很直观，如果你会英文那么一看就懂。不懂参照附录2
 4. 再次运行，如果没有任何异常，说明运行成功。
+5. 向指定的邮箱发送邮件，内容任意，主题为“get ngrok”，等待一会儿，就会收到主题为“Command operated”的邮件，内容为NGROK的地址和端口
 
 ### English
 
@@ -31,6 +32,7 @@ Abstract: This script allow you to start NGROK while using an email to get NGROK
 2. When using it for the first time, simply open it, and it will create a config.json file in the script's directory.
 3. Modify the options in the config.json file; their names are intuitive, so if you understand English, you will grasp them at a glance. If not, refer to Appendix 2.
 4. Run it again; if there are no exceptions, it indicates a successful run.
+5. Send an email to the specified email address with any content, the subject should be "get ngrok". Wait for a while, and you will receive an email with the subject "Command operated" containing the address and port of NGROK.
 
 # 附录（Appendix）
 
