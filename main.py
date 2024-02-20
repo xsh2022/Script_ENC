@@ -173,6 +173,7 @@ def main():
     # NGROK连接
     ngrok_conn = ngrok.connect(ngrok_conn_port, ngrok_conn_type)
     print(f'Config is read and ready to work!\n')
+    print(ngrok_conn)
 
     # 主循环
     while True:
