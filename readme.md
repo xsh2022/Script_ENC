@@ -134,4 +134,4 @@ Take the following config.json for example:
 | imap->port     | Port for IMAP, currently only supports SSL port                                                                                                                      |
 | imap->username | IMAP username, usually the same as the email address                                                                                                                 |
 | imap->password | IMAP password, "authorization code" on the 163 settings page, usually different from the login password for webmail                                                  |
-| smtp->xxx      | Similar to imap->xxxW                                                                                                                                                |
+| smtp->xxx      | Similar to imap->xxx                                                                                                                                                 |
