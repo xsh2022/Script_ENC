@@ -260,9 +260,15 @@ def main():
             except Exception as e:
                 print(f'Unexpected error: [{e}]')
             else:
-                print(f'----\nMail handled, subject:[{subject}], from: [{sender}].\n'
-                      f'Back, subject: [{subject_back}], content:\n'
-                      f'{body_back}\n----\n')
+                print(f'------------------------------\n'
+                      f'M A I L    H A N D L E D\n'
+                      f'Subject: [{subject}]\n'
+                      f'From: [{sender}]\n'
+                      f'BACK\n'
+                      f'Subject: [{subject_back}]\n'
+                      f'Content:\n'
+                      f'{body_back}\n'
+                      f'------------------------------\n')
         time.sleep(1)
     imap_conn.close()
     return 0
