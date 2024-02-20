@@ -14,6 +14,7 @@ from email.mime.text import MIMEText
 from email.utils import formataddr
 from imaplib import IMAP4_SSL
 from pyngrok import ngrok
+from pyngrok import conf as ngrok_conf
 
 
 stop_signal = False
@@ -24,7 +25,8 @@ DEFAULT_CONFIG_CONTENT = \
   "ngrok": {
     "ngrok_token": "1234567890",
     "conn_type": "tcp",
-    "conn_port": 22
+    "conn_port": 22,
+    "region": "jp"
   },
   "email": {
     "imap":{
@@ -43,6 +45,7 @@ DEFAULT_CONFIG_CONTENT = \
 }
 '''
 ALLOWED_NGROK_CONN_TYPES = ['tcp', 'http']
+ALLOWED_REGIONS = ['ap', 'jp', 'eu', 'us', 'au']
 
 
 def read_config(path):
@@ -125,6 +128,7 @@ def main():
     ngrok_conn_type = config['ngrok']['conn_type']
     ngrok_conn_port = config['ngrok']['conn_port']
     ngrok_token = config['ngrok']['ngrok_token']
+    ngrok_region = config['ngrok']['region']
 
     imap_host = config['email']['imap']['host']
     imap_port = config['email']['imap']['port']
@@ -137,11 +141,15 @@ def main():
     smtp_password = config['email']['smtp']['password']
 
     if ngrok_conn_type not in ALLOWED_NGROK_CONN_TYPES:
-        print(f'[{ngrok_conn_type}] is not an allowed ngrok conn type')
-        return 2
+        print(f'[{ngrok_conn_type}] is not an allowed ngrok conn type...')
+        return 1
+    if ngrok_region is not None and ngrok_region not in ALLOWED_REGIONS:
+        print(f'[{ngrok_region}] is not an allowed ngrok region...')
+        return 1
 
     # 设置ngrok连接
     ngrok.set_auth_token(ngrok_token)
+    ngrok_conf.get_default().region = ngrok_region
 
     # IMAP 初始化
     try:
@@ -187,6 +195,7 @@ def main():
                 break
             else:
                 print(f'Unexpected error: [{e}], restarting ngrok conn....')
+                ngrok.disconnect(ngrok_conn.public_url)
                 ngrok_conn = ngrok.connect(ngrok_conn_port, ngrok_conn_type)
         else:
             if stop_signal:
@@ -276,6 +285,7 @@ def main():
                       f'===================================\n')
         time.sleep(1)
     imap_conn.close()
+    ngrok.disconnect(public_url=ngrok_conn.public_url)
     return 0
 
 

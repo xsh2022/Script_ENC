@@ -84,16 +84,17 @@ python -m pip install pyngrok
 }
 ```
 
-| 参数           | 说明                                                                                                 |
-| -------------- | ---------------------------------------------------------------------------------------------------- |
-| ngrok_token    | NGROK的TOKEN码，在官网查询                                                                           |
+| 参数             | 说明                                                           |
+|----------------|--------------------------------------------------------------|
+| ngrok_token    | NGROK的TOKEN码，在官网查询                                           |
 | conn_type      | NGROK映射的类型，可以选择TCP、HTTP等，具体参考NGROK官网。``例如你可以选择TCP来访问ssh端口22。 |
-| conn_port      | NGROK映射的端口。                                                                                    |
-| imap->host     | IMAP的主机地址。                                                                                     |
-| imap->port     | IMAP的端口，目前只支持SSL的端口                                                                      |
-| imap->username | IMAP用户名，一般与邮箱同名                                                                           |
-| imap->password | IMAP密码，163设置页面中的“授权码”，一般与网页邮箱的登录密码不同                                    |
-| smtp->...      | 与imap->...类似                                                                                      |
+| conn_port      | NGROK映射的端口。                                                  |
+| region         | NGROK地区，可选择日本（jp）、亚洲（ap）、美国（us）、欧洲（eu）、澳大利亚（au）              |
+| imap->host     | IMAP的主机地址。                                                   |
+| imap->port     | IMAP的端口，目前只支持SSL的端口                                          |
+| imap->username | IMAP用户名，一般与邮箱同名                                              |
+| imap->password | IMAP密码，163设置页面中的“授权码”，一般与网页邮箱的登录密码不同                         |
+| smtp->xxx      | 与imap->xxx类似                                                 |
 
 ### English
 
@@ -123,13 +124,14 @@ Take the following config.json for example:
 }
 ```
 
-| Parameter      | Description                                                                                                                                                                 |
-| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ngrok_token    | Token code for NGROK, check on the official website                                                                                                                         |
+| Parameter      | Description                                                                                                                                                          |
+|----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ngrok_token    | Token code for NGROK, check on the official website                                                                                                                  |
 | conn_type      | Type of mapping for NGROK, options include TCP, HTTP, etc., refer to the NGROK official website for details.``For example, you can choose TCP to access ssh port 22. |
-| conn_port      | Port for NGROK mapping                                                                                                                                                      |
-| imap->host     | Host address for IMAP                                                                                                                                                       |
-| imap->port     | Port for IMAP, currently only supports SSL port                                                                                                                             |
-| imap->username | IMAP username, usually the same as the email address                                                                                                                        |
-| imap->password | IMAP password, "authorization code" on the 163 settings page, usually different from the login password for webmail                                                         |
-| smtp->...      | Similar to imap->...                                                                                                                                                        |
+| conn_port      | Port for NGROK mapping                                                                                                                                               |
+| region         | NGROK region, Japan (jp), Asia (ap), United States (us), Europe (eu) and Australia (au) are selections                                                               |
+| imap->host     | Host address for IMAP                                                                                                                                                |
+| imap->port     | Port for IMAP, currently only supports SSL port                                                                                                                      |
+| imap->username | IMAP username, usually the same as the email address                                                                                                                 |
+| imap->password | IMAP password, "authorization code" on the 163 settings page, usually different from the login password for webmail                                                  |
+| smtp->xxx      | Similar to imap->xxxW                                                                                                                                                |
