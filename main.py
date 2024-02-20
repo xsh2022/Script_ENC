@@ -13,10 +13,11 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.utils import formataddr
 from imaplib import IMAP4_SSL
-
 from pyngrok import ngrok
 
+
 stop_signal = False
+
 
 DEFAULT_CONFIG_CONTENT = \
     '''{
@@ -171,7 +172,7 @@ def main():
 
     # NGROK连接
     ngrok_conn = ngrok.connect(ngrok_conn_port, ngrok_conn_type)
-    print(ngrok_conn)
+    print(f'Config is read and ready to work!\n')
 
     # 主循环
     while True:
@@ -234,20 +235,19 @@ def main():
             unseen_msg_list.append([subject_str, sender, content_list])
         # 处理读取的邮件、发送回复
         for [subject, sender, body] in unseen_msg_list:
-            if subject == '获取内网穿透地址':
-                subject_back = '命令执行'
+            if subject.lower() == 'get ngrok':
+                subject_back = 'Command operated'
                 sender_back = smtp_username
                 receiver_back = sender
-                body_back = (f'公网地址：{ngrok_conn.public_url}\n'
-                             f'映射端口：{ngrok_conn_port}\n'
-                             f'API地址：{ngrok_conn.api_url}\n')
+                body_back = (f'Public URL: {ngrok_conn.public_url}\n'
+                             f'Port to reflect: {ngrok_conn_port}\n')
             else:
-                subject_back = '已收到您的邮件'
+                subject_back = 'Mail received'
                 sender_back = smtp_username
                 receiver_back = sender
-                body_back = '将尽快做出回复'
+                body_back = 'We are trying to reply you ASAP'
             msg = MIMEMultipart()
-            msg['from'] = formataddr((Header('XSH的自动邮箱', 'utf-8').encode(), sender_back))
+            msg['from'] = formataddr((Header('Auto Mail', 'utf-8').encode(), sender_back))
             msg['to'] = receiver_back
             msg['subject'] = Header(subject_back, 'utf-8').encode()
             msg.attach(MIMEText(body_back, 'plain', 'utf-8'))
@@ -258,11 +258,11 @@ def main():
                 smtp_conn.ehlo_or_helo_if_needed()
                 smtp_conn.sendmail(sender_back, receiver_back, msg.as_string())
             except Exception as e:
-                print(f'Error: [{e}]')
+                print(f'Unexpected error: [{e}]')
             else:
                 print(f'----\nMail handled, subject:[{subject}], from: [{sender}].\n'
                       f'Back, subject: [{subject_back}], content:\n'
-                      f'{body_back}\n----')
+                      f'{body_back}\n----\n')
         time.sleep(1)
     imap_conn.close()
     return 0
