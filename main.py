@@ -170,7 +170,7 @@ def main():
             stat, dat = imap_conn._simple_command('ID', '("' + '" "'.join(ag) + '")')
         except imaplib.IMAP4_SSL.error as e:
             print(f'IMAP login failure! Retrying in 5 seconds. Error:{e}')
-            time.sleep(5)
+            time.sleep(1)
             continue
         except Exception as e:
             print(f'Unexpected error: [{e}]')
@@ -194,9 +194,10 @@ def main():
                 ngrok.disconnect(ngrok_conn.public_url)
                 break
             else:
-                print(f'Unexpected error: [{e}], restarting ngrok conn....')
+                print(f'Unexpected error: [{e}], restarting NGROK connection....')
                 ngrok.disconnect(ngrok_conn.public_url)
                 ngrok_conn = ngrok.connect(ngrok_conn_port, ngrok_conn_type)
+                print(f'Restart NGROK New conn: {ngrok_conn}')
         else:
             if stop_signal:
                 ngrok.disconnect(ngrok_conn.public_url)
@@ -209,7 +210,7 @@ def main():
         stat, data = imap_conn.search(None, 'UNSEEN')
         if stat != 'OK':
             print('Failure when reading mail')
-            time.sleep(5)
+            time.sleep(1)
             continue
         email_ids = data[0].split()
         mail_cnt = len(email_ids)
@@ -283,7 +284,7 @@ def main():
                       f'- - - - - - - - - - - - - - - - - -\n'
                       f'{body_back}\n'
                       f'===================================\n')
-        time.sleep(1)
+        time.sleep(0.1)
     imap_conn.close()
     ngrok.disconnect(public_url=ngrok_conn.public_url)
     return 0
