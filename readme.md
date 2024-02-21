@@ -135,3 +135,66 @@ Take the following config.json for example:
 | imap->username | IMAP username, usually the same as the email address                                                                                                                 |
 | imap->password | IMAP password, "authorization code" on the 163 settings page, usually different from the login password for webmail                                                  |
 | smtp->xxx      | Similar to imap->xxx                                                                                                                                                 |
+
+## 附录3：关于SSH与防火墙（Appendix 3. About SSH and the Firewall）
+
+### 中文
+
+ssh连接请允许sshd服务。Windows下自带ssh服务器，Linux下请安装ssh服务器，以Ubuntu为例，你可以使用下列命令安装
+
+```bash
+sudo apt install openssh-server openssh-client ssh
+```
+
+以管理员模式打开cmdline，开启sshd服务，Windows代码为：
+
+```cmd
+net start sshd
+```
+
+Linux下以service命令开启sshd，代码为：
+```bash
+sudo service sshd start
+```
+
+如果你修改了config.json中的conn_port，请在sshd_config中进行相应修改，这里不再赘述过程。
+
+请允许 conn_port 端口（默认为端口22）的TCP连接。如果你开启了防火墙，以ufw防火墙为例，Linux下请使用如下命令：
+
+```bash
+sudo ufw allow <conn_port>/tcp
+sudo ufw reload
+```
+
+Windows在Windows Defender高级设置中修改防火墙设置，这里也不再赘述。
+
+### English
+
+To allow SSH connections, please enable the sshd service. Windows comes with an SSH server. For Linux, install an SSH server. Taking Ubuntu as an example, you can use the following command to install:
+
+```bash
+sudo apt install openssh-server openssh-client ssh
+```
+
+To open the sshd service in administrator mode, the Windows command is:
+
+```cmd
+net start sshd
+```
+
+In Linux, use the service command to start sshd, the code is:
+
+```bash
+sudo service sshd start
+```
+
+If you have modified the conn_port in config.json, make the corresponding changes in sshd_config. The process is not elaborated here.
+
+Allow TCP connections on the conn_port port (default port is 22). If you have a firewall enabled, for example, using ufw firewall in Linux, use the following commands:
+
+```bash
+sudo ufw allow <conn_port>/tcp
+sudo ufw reload
+```
+
+For Windows, modify the firewall settings in Windows Defender’s advanced settings. This process is not elaborated here.
